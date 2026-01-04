@@ -32,19 +32,8 @@ enum custom_keycodes {
 
 // Combos for Spanish characters
 const uint16_t PROGMEM n_tilde_combo[] = {KC_L, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM a_acute_combo[] = {KC_A, KC_S, COMBO_END};
-const uint16_t PROGMEM e_acute_combo[] = {KC_E, KC_R, COMBO_END};
-const uint16_t PROGMEM i_acute_combo[] = {KC_I, KC_O, COMBO_END};
-const uint16_t PROGMEM o_acute_combo[] = {KC_O, KC_P, COMBO_END};
-const uint16_t PROGMEM u_acute_combo[] = {KC_U, KC_I, COMBO_END};
-
 combo_t key_combos[] = {
     COMBO(n_tilde_combo, SP_NTILDE),
-    COMBO(a_acute_combo, SP_AACUTE),
-    COMBO(e_acute_combo, SP_EACUTE),
-    COMBO(i_acute_combo, SP_IACUTE),
-    COMBO(o_acute_combo, SP_OACUTE),
-    COMBO(u_acute_combo, SP_UACUTE),
 };
 uint16_t COMBO_LEN = sizeof(key_combos) / sizeof(key_combos[0]);
 
@@ -74,20 +63,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            MO(2), KC_LGUI,  KC_SPC,     KC_ENT,   MO(1),  KC_DEL
+                                          KC_LALT, KC_LGUI,  KC_SPC,     KC_ENT,   MO(1),   MO(2)
                                       //`--------------------------'  `--------------------------'
 
   ),
 
     [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,------------------------------------------------------.
-       KC_TAB, XXXXXXX,    KC_1,    KC_2,    KC_3, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
+       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX,    KC_4,    KC_5,    KC_6, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_LSFT,  KC_DEL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX,    KC_7,    KC_8,    KC_9,    KC_0,                      XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX,  KC_ESC,
+      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX,  KC_ESC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          GUI_ALT, KC_LGUI,  KC_SPC,     KC_ENT, XXXXXXX, KC_RALT
+                                          KC_LALT, KC_LGUI,  KC_SPC,     KC_ENT, XXXXXXX, KC_RALT
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -99,10 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_EQL, KC_PIPE, KC_LCBR, KC_RCBR, KC_TILD,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          GUI_ALT,   MO(3),  KC_SPC,     KC_ENT,   MO(3), KC_RALT
+                                          KC_LALT,   MO(3),  KC_SPC,     KC_ENT,   MO(3), KC_RALT
                                       //`--------------------------'  `--------------------------'
   ),
-
     [3] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,------------------------------------------------------.
       QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -111,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RM_NEXT, RM_HUED, RM_SATD, RM_VALD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, _______, KC_RALT
+                                          KC_LALT, KC_LGUI,  KC_SPC,     KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -127,6 +115,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 // Process custom keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
     switch (keycode) {
         case GUI_ALT:
             if (record->event.pressed) {
